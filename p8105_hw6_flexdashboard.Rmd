@@ -77,12 +77,40 @@ Column {data-width=350}
 ### Chart B
 
 ```{r}
+top_5_cuisine = nyc_inspections %>%
+  #filter(zipcode == input$"zipcode") %>%
+  select(score, cuisine_description) %>%
+  drop_na() %>%
+  count(cuisine_description, sort = TRUE) %>%
+  top_n(5) %>%
+  select(cuisine_description)
 
+cuisine_density = nyc_inspections %>%
+  inner_join(., top_5_cuisine) %>%
+  select(score, cuisine_description) %>%
+  mutate(score=as.numeric(score))%>%
+  ggplot(aes(score, fill = cuisine_description)) + 
+  geom_density(alpha = 0.2)
+  
+ggplotly(cuisine_density)
 ```
 
 ### Chart C
 
 ```{r}
+inspection_words = nyc_inspections %>%
+  filter(grade %in% c("A", "B", "C")) %>%
+  mutate(inspection_num = row_number(),
+         boro = str_to_title(boro)) %>% 
+  select(inspection_num, boro, grade, score, critical_flag, dba, cuisine_description, zipcode, violation_description)%>% 
+  unnest_tokens(word, violation_description) %>%
+  anti_join(stop_words)
 
+inspection_words %>%
+  count(word, sort = TRUE) %>%
+  top_n(10) %>% 
+  mutate(word = fct_reorder(word, n)) %>% 
+  plot_ly(x =~ word, y = ~n, color =~ word, type = "bar", colors = "Set1")
+})
 ```
 
