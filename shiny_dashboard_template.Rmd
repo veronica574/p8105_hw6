@@ -54,7 +54,9 @@ get_all_inspections = function(url) {
 url = "https://data.cityofnewyork.us/resource/9w7m-hzhe.json"
 
 nyc_inspections = get_all_inspections(url) %>%
-  bind_rows() 
+  bind_rows() %>%
+  mutate(score = as.numeric(score)) %>%
+  filter(!is.na(score))
 ```
 
 
@@ -64,6 +66,14 @@ Column {.sidebar}
 ```{r}
 #Textinput widget
 textInput("zip_code", label = h3("Enter Zip score"), value = "10001", width = NULL, placeholder = NULL)
+
+
+max_score = nyc_inspections %>%  distinct(score)%>% max()
+min_score = nyc_inspections %>% distinct(score)%>% min()
+
+# sliderInput widget
+sliderInput("score_range", label = h3("Choose score range"), min = min_score, 
+        max = max_score, value = c(0, 25))
 ```
 
 
@@ -82,7 +92,16 @@ Row {.tabset .tabset-fade}
 ### Chart B
 
 ```{r}
-
+renderPlotly({
+nyc_inspections %>%
+  filter(!boro == "Missing", 
+         zipcode == input$zip_code, 
+         score %in% input$score_range[1]:input$score_range[2]) %>%
+  mutate(boro = as.factor(boro),
+         boro = fct_reorder(boro, score)) %>% 
+  plot_ly(y = ~score, color = ~boro, type = "box",
+          colors = "Set2")
+})
 ```
 
 ### Chart C
