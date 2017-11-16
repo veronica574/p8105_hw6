@@ -57,7 +57,7 @@ url = "https://data.cityofnewyork.us/resource/9w7m-hzhe.json"
 nyc_inspections = get_all_inspections(url) %>%
   bind_rows() 
 ```
-```
+
 
 Column {data-width=650}
 -----------------------------------------------------------------------
