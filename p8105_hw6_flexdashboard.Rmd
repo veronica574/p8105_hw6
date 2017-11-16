@@ -10,6 +10,9 @@ output:
 library(flexdashboard)
 library(viridis)
 library(plotly)
+library(stringr)
+library(forcats)
+library(tidytext) 
 library(ggridges)
 library(ggplot2)
 ```
@@ -59,26 +62,10 @@ nyc_inspections = get_all_inspections(url) %>%
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Chart A
-
-```{r}
-nyc_inspections %>%
-  filter(!boro == "Missing") %>%
-  mutate(score = as.numeric(score),
-         boro = as.factor(boro),
-         boro = fct_reorder(boro, score)) %>% 
-  plot_ly(y = ~score, color = ~boro, type = "box",
-          colors = "Set2")
-```
-
-Column {data-width=350}
------------------------------------------------------------------------
-
-### Chart B
+### Density Plot of Score vs Top 5 Kinds of Cuisine 
 
 ```{r}
 top_5_cuisine = nyc_inspections %>%
-  #filter(zipcode == input$"zipcode") %>%
   select(score, cuisine_description) %>%
   drop_na() %>%
   count(cuisine_description, sort = TRUE) %>%
@@ -95,7 +82,23 @@ cuisine_density = nyc_inspections %>%
 ggplotly(cuisine_density)
 ```
 
-### Chart C
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Boxplot of Score vs Boro
+
+```{r}
+nyc_inspections %>%
+  filter(!boro == "Missing") %>%
+  mutate(score = as.numeric(score),
+         boro = as.factor(boro),
+         boro = fct_reorder(boro, score)) %>% 
+  plot_ly(y = ~score, color = ~boro, type = "box",
+          colors = "Set2")
+```
+
+### Top 10 Words Appearing in Inspections
 
 ```{r}
 inspection_words = nyc_inspections %>%
@@ -111,6 +114,6 @@ inspection_words %>%
   top_n(10) %>% 
   mutate(word = fct_reorder(word, n)) %>% 
   plot_ly(x =~ word, y = ~n, color =~ word, type = "bar", colors = "Set1")
-})
+
 ```
 
