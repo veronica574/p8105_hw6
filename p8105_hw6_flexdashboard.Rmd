@@ -8,6 +8,10 @@ output:
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
+library(viridis)
+library(plotly)
+library(ggridges)
+library(ggplot2)
 ```
 
 ```{r dataimput, include=FALSE}
@@ -58,7 +62,13 @@ Column {data-width=650}
 ### Chart A
 
 ```{r}
-
+nyc_inspections %>%
+  filter(!boro == "Missing") %>%
+  mutate(score = as.numeric(score),
+         boro = as.factor(boro),
+         boro = fct_reorder(boro, score)) %>% 
+  plot_ly(y = ~score, color = ~boro, type = "box",
+          colors = "Set2")
 ```
 
 Column {data-width=350}
