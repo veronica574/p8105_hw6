@@ -1,7 +1,9 @@
 ---
-title: "Holy cow!"
+title: "NYC Restaurant Inspections"
 ---
 
-### I have a webpage!
+NYC Restaurant Inspections
+<img src="images/resturants inspection.png" style="width:75%">
 
-And I can put all kinds of stuff on it!
+The dataset describes the result of restaurant inspections in New York City. It includes 397544 observations and 18 variables. The variables consist of boro, grade, score, violation codes, address of restaurants, inspection and grade date, etc. 
+To explore the dataset, we created plots to describe the relationship between score and boro, score and cuisine type and most frequent words used in inspections. We visualized the above information and formed shiny and flexdashboard.
