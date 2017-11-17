@@ -4,7 +4,7 @@ navbar:
   title: "Home"
   right:
     - text: "flexdashboard"
-      href: p8105_hw6_flexdashboard.html
+      href: ../p8105_hw6_flexdashboard.html
     - icon: fa-envelope fa-lg
       href: mailto:<you@youremail.com>
     - icon: fa-github fa-lg
