@@ -17,4 +17,4 @@ To explore the dataset, we created plots to describe the relationship between sc
 
 
 
-The shiny website is [shiny](https://veronica574.shinyapps.io/shiny/)
+The shiny website is [here](https://veronica574.shinyapps.io/shiny/). Because our dataset is large, we drop all observations with NA and only select our target varibales(score, boro, zipcode, cuisine_description, and violation_description). The final dataset we used have 193603 observations and 5 variables
