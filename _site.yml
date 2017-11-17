@@ -4,7 +4,7 @@ navbar:
   title: "Home"
   right:
     - text: "flexdashboard"
-      href: ../p8105_hw6_flexdashboard.html
+      href: ./flex/p8105_hw6_flexdashboard.html
     
 output:
   html_document
