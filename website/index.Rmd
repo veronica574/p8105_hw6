@@ -14,3 +14,7 @@ The dataset describes the result of restaurant inspections in New York City. It 
 
 
 To explore the dataset, we created plots to describe the relationship between score and boro, score and cuisine type and most frequent words used in inspections. We visualized the above information and formed shiny and flexdashboard.
+
+
+
+The shiny website is [shiny](https://veronica574.shinyapps.io/shiny/)
