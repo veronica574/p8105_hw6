@@ -5,6 +5,8 @@ navbar:
   right:
     - text: "flexdashboard"
       href: ./flex/p8105_hw6_flexdashboard.html
+    - icon: fa-github fa-lg
+      href: https://github.com/veronica574/p8105_hw6
     
 output:
   html_document
